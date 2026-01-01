@@ -8,7 +8,7 @@
     "dev:dev": "vite --mode dev --port=5000",
     "dev:prod": "vite --mode prod --port=5000",
     "build": "tsc -b && vite build",
-    "build:dev": "vite build --mode dev",
+    "build:dev": "tsc -b && vite build --mode dev",
     "lint": "eslint .",
     "preview": "vite preview"
   },
