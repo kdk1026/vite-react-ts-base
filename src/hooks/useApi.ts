@@ -104,6 +104,7 @@ const useApi = <T, P extends unknown[]>(
             }
             
             console.error(error);
+            throw error;
         } finally {
             setIsLoading(false);
         }
