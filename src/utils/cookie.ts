@@ -17,7 +17,7 @@ export interface CookieOptions {
  * @param {string} name 
  * @param {string} value 
  * @param {boolean} isLocal 
- * @param {*} options 
+ * @param {CookieOptions} options 
  * @returns 
  */
 export const setCookie = <T>(name: string, value: T, isLocal: boolean, options: CookieOptions) => {
@@ -43,7 +43,7 @@ export const getCookie = (name: string) => {
  * 쿠키 삭제
  * @param {string} name 
  * @param {boolean} isLocal 
- * @param {*} options 
+ * @param {CookieOptions} options 
  * @returns 
  */
 export const removeCookie = (name: string, isLocal: boolean, options: CookieOptions) => {
@@ -60,7 +60,7 @@ export const removeCookie = (name: string, isLocal: boolean, options: CookieOpti
  * @param {string} name 
  * @param {Array} array 
  * @param {boolean} isLocal 
- * @param {*} options 
+ * @param {CookieOptions} options 
  * @returns 
  */
 export const setArrayInCookie = <T>(name: string, array: T[], isLocal: boolean, options: CookieOptions) => {
@@ -75,7 +75,7 @@ export const setArrayInCookie = <T>(name: string, array: T[], isLocal: boolean, 
  * @param {string} name 
  * @param {Object} object 
  * @param {boolean} isLocal 
- * @param {*} options 
+ * @param {CookieOptions} options 
  * @returns 
  */
 export const setObjectInCookie = <T extends object>(name: string, object: T, isLocal: boolean, options: CookieOptions) => {
