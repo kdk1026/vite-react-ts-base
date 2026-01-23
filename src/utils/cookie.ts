@@ -1,5 +1,10 @@
 import { Cookies } from "react-cookie";
 
+const DEFAULT_OPTIONS = {
+    path: "/",
+    secure: import.meta.env.VITE_PROFILE !== "local",
+};
+
 const cookies = new Cookies();
 
 export interface CookieOptions {
@@ -16,17 +21,11 @@ export interface CookieOptions {
  * 일반 쿠키 생성
  * @param {string} name 
  * @param {string} value 
- * @param {boolean} isLocal 
  * @param {CookieOptions} options 
  * @returns 
  */
-export const setCookie = <T>(name: string, value: T, isLocal: boolean, options: CookieOptions) => {
-    const shouldUseSecure = !isLocal;
-    const updatedOptions = { 
-        ...options, 
-        ...(shouldUseSecure && { secure: true }) 
-    };
-    return cookies.set(name, value, updatedOptions);
+export const setCookie = <T>(name: string, value: T, options: CookieOptions) => {
+    return cookies.set(name, value, { ...DEFAULT_OPTIONS, ...options });
 };
 
 /**
@@ -42,31 +41,24 @@ export const getCookie = (name: string) => {
 /**
  * 쿠키 삭제
  * @param {string} name 
- * @param {boolean} isLocal 
  * @param {CookieOptions} options 
  * @returns 
  */
-export const removeCookie = (name: string, isLocal: boolean, options: CookieOptions) => {
-    const shouldUseSecure = !isLocal;
-    const updatedOptions = { 
-        ...options, 
-        ...(shouldUseSecure && { secure: true }) 
-    };
-    return cookies.remove(name, updatedOptions);
+export const removeCookie = (name: string, options: CookieOptions) => {
+    return cookies.remove(name, { ...DEFAULT_OPTIONS, ...options });
 }
 
 /**
  * Array 쿠키 생성
  * @param {string} name 
  * @param {Array} array 
- * @param {boolean} isLocal 
  * @param {CookieOptions} options 
  * @returns 
  */
-export const setArrayInCookie = <T>(name: string, array: T[], isLocal: boolean, options: CookieOptions) => {
+export const setArrayInCookie = <T>(name: string, array: T[], options: CookieOptions) => {
     if ( array && Array.isArray(array) && array.length > 0 ) {
         //JSON.stringify(array) 자동으로 해줌
-        setCookie(name, array, isLocal, options);
+        setCookie(name, array, options);
     }
 };
 
@@ -74,13 +66,12 @@ export const setArrayInCookie = <T>(name: string, array: T[], isLocal: boolean, 
  * Object 쿠키 생성
  * @param {string} name 
  * @param {Object} object 
- * @param {boolean} isLocal 
  * @param {CookieOptions} options 
  * @returns 
  */
-export const setObjectInCookie = <T extends object>(name: string, object: T, isLocal: boolean, options: CookieOptions) => {
+export const setObjectInCookie = <T extends object>(name: string, object: T, options: CookieOptions) => {
     if ( object && !Array.isArray(object) && Object.keys(object).length > 0 ) {
         //JSON.stringify(object) 자동으로 해줌
-        setCookie(name, object, isLocal, options);
+        setCookie(name, object, options);
     }
 }
